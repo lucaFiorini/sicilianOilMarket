@@ -11,14 +11,22 @@
         <?require "header.php"?>
         <main>
             Prodotti:
-            <div class="table" id="products-table">
-                <?for($i = 0; true;) print("hello")?>
-                    <div class="col">
-                        <div class="row">
-                            
+            <div class="product table" id="products-table">
+                <?php foreach($products as $id => $product): ?>
+                    <div class="product">
+                        <div class="prod-image">
+                            <image src='<?=$product->image?>'>
+                        </div>
+                        <div class="prod-name">
+                            <h2><a href='products/<?=$product->id?>'><?=$product->name?></a></h2>
+                        </div>
+                        <div class="prod-description">
+                            <p>
+                                <a hred='products/<?=$product->id?>'><?=$product->description?></a>
+                            </p>
                         </div>
                     </div>
-                <?endfor;?>
+                <?php endforeach;?>
             </div>
         </main>
         <?require "footer.php"?>
