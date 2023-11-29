@@ -1,5 +1,7 @@
-
-<?require "basic_start.php"?>
+<?php
+    $query = $_GET['query'];
+    $tags = $_GET['tags'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,12 +10,12 @@
     <title>Document</title>
 </head>
     <body>
-        <?require "header.php"?>
+        <?php require "header.php"?>
         <main>
             Prodotti:
             <div class="product table" id="products-table">
                 <?php foreach($products as $id => $product): ?>
-                    <div class="product">
+                    <div class="row">
                         <div class="prod-image">
                             <image src='<?=$product->image?>'>
                         </div>
@@ -29,6 +31,6 @@
                 <?php endforeach;?>
             </div>
         </main>
-        <?require "footer.php"?>
+        <?php require "footer.php"?>
     </body>
 </html>
