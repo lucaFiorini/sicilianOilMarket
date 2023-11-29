@@ -1,0 +1,17 @@
+RewriteEngine On
+RewriteBase /GitHub/sicilianOilMarket/
+
+# Exclude /api from the redirection
+RewriteCond %{REQUEST_URI} !^/GitHub/sicilianOilMarket/api
+
+# Remove file extensions for php files
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([^/]+)/?$ public/$1.php [L]
+
+# Handle accessing PHP files without extensions directly
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^([^/]+)/?$ public/$1.php [L]
+
+# Redirect everything else to /public directory
+RewriteRule ^$ public/ [L]
