@@ -32,6 +32,7 @@ class Customer extends Profile{
 
 }
 
+require("producer.php");
 /*todo
 class ProducerInterface extends Producer{
     Profile p;
