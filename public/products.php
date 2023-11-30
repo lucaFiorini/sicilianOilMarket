@@ -1,9 +1,14 @@
 <?php
 $conn = require("../classes/getConnection.php");
-$res = $conn->query("SELECT ProductID as ID, image, name , description FROM product");
+$res = $conn->query("SELECT ProductID as ID, image, name, description, price FROM product");
 $products = $res->fetch_all(MYSQLI_ASSOC);
 ?>
-
+<script>
+    cart  = []
+    function addToCart(id){
+        cart.push(id);
+    }
+</script>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,25 +18,19 @@ $products = $res->fetch_all(MYSQLI_ASSOC);
     <link href="style.css" rel="stylesheet" >
 </head>
     <body>
+        <?php require "../partials/header.php"?>
         <main>
-            <?php require "../partials/header.php"?>
-            <h2><a href="create product">Crea Prodotto</a></2><br>
             <?php if(count($products)>0):?>
-                Prodotti:
-                <div class="product table" id="products-table">
+                <div id="products">
                     <?php foreach($products as $id => $product):?>
-                        <div class="row">
-                            <div class="prod-image">
-                                <image src='images/<?=$product["image"]?>'>
-                            </div>
-                            <div class="prod-name">
-                                <h2><a href='product/?id=<?=$product["ID"]?>'><?=$product["name"]?></a></h2>
-                            </div>
-                            <div class="prod-description">
-                                <p>
-                                    <a hred='product/?id=<?=$product["ID"]?>'><?=$product["description"]?></a>
-                                </p>
-                            </div>
+                        <div class="product">
+                            <image class="image" src='https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg'>
+
+                            <a class="title" href='product?id=<?=$product["ID"]?>'><?=$product["name"]?></a>
+                            <a class="description" hred='product?id=<?=$product["ID"]?>'><?=$product["description"]?></a>
+                            <div>€<?=floatval($product["price"]) / 100?></div>
+                            <input type="button" value="Aggiungi al carrello" onclick='addToCart(<?=$product["ID"]?>)'>
+
                         </div>
                     <?php endforeach;?>
                 </div>
@@ -41,6 +40,6 @@ $products = $res->fetch_all(MYSQLI_ASSOC);
                 </p>
             <?php endif;?>
         </main>
-        <?php require "../partials/footer.php"?>
+        <?php //require "../partials/footer.php"?>
     </body>
 </html>

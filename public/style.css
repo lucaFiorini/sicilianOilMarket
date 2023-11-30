@@ -1,5 +1,134 @@
-.table {
-    display: table;
-    border-width: 2px;
-    border-color: black;
+/* General Styles */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+}
+
+main {
+    margin: 1em;
+}
+
+button {
+    all: unset;
+}
+
+a {
+    all:unset;
+}
+/* Product Styles */
+.product {
+    display: inline-grid;
+    grid-template-rows: auto 1fr auto auto;
+    width: 200px;
+    border-radius: 0.5em;
+    margin: 10px;
+    padding: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    overflow: hidden;
+    text-align: justify;
+}
+
+.product > * {
+    margin-bottom: 10px;
+}
+
+.product > .image {
+    width: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 0.2em;
+}
+
+.product > .title {
+    color: olivedrab;
+    font-size: large;
+    font-weight: bold;
+    text-decoration: none; /* Remove default underline */
+    text-transform: capitalize;
+}
+
+.product > .description {
+    font-size: small;
+    overflow-wrap: anywhere;
+    height: 5em;
+}
+
+.product > .buy {
+    text-align: center;
+}
+
+input[type=button] {
+    background-color: rgb(85, 107, 46);
+    border: none;
+    border-radius: 0.1em;
+    font-size: large;
+    padding: 8px 15px;
+    color: white;
+    cursor: pointer;
+    transition: filter 0.2s ease;
+}
+
+input[type=button]:hover {
+    filter: brightness(70%);
+}
+
+/* Navigation Styles */
+
+nav {
+    font-size: larger;
+    background-color: darkolivegreen;
+    color: white;
+}
+
+nav.horizontal {
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    text-align: center;
+}
+
+nav > ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+nav > ul > li {
+    float: left;
+}
+
+nav > ul > li > a {
+    display: block;
+    padding: 14px 1em;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+}
+
+nav > ul > li > a:hover {
+    background-color: rgb(43, 54, 23);
+}
+
+nav.horizontal > .user-area{
+    display: flex;
+    align-items:center;
+}
+
+nav.horizontal > .user-area > .cart {
+    padding:14px;
+    position: relative;
+    top:0.1em;
+    cursor: pointer;
+}
+
+nav.horizontal > .user-area > .cart:hover {
+    filter:brightness(70%);
+}
+
+nav.horizontal > .user-area > .profile-pic {
+    aspect-ratio: 1/1;
+    height: 2.4em;
+    padding:1px;
+    border-radius: 0.5em;
 }
