@@ -4,6 +4,7 @@ if(isset($_GET['name'],$_GET['description'])){
   $stmt = $conn->prepare('INSERT INTO Product(name,description) VALUES (?,?)');
   $stmt->bind_param('ss', $_GET['name'],$_GET['description']);
   $stmt->execute();
+  echo 'Prodotto'.$_GET['name'].'<br>';
 }
 ?>
 

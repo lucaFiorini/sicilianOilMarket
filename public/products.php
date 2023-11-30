@@ -10,6 +10,7 @@ $products = $res->fetch_all(MYSQLI_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Products</title>
+    <link href="style.css" rel="stylesheet" >
 </head>
     <body>
         <main>
@@ -21,7 +22,7 @@ $products = $res->fetch_all(MYSQLI_ASSOC);
                     <?php foreach($products as $id => $product):?>
                         <div class="row">
                             <div class="prod-image">
-                                <image src='<?=$product["image"]?>'>
+                                <image src='images/<?=$product["image"]?>'>
                             </div>
                             <div class="prod-name">
                                 <h2><a href='product/?id=<?=$product["ID"]?>'><?=$product["name"]?></a></h2>
