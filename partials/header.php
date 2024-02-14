@@ -1,3 +1,9 @@
+<?php
+
+ if(session_status() == PHP_SESSION_NONE) 
+  session_start();
+
+?>
 <script>
   function goToCart(){
     let params = '';
@@ -17,6 +23,9 @@
       <li>
         <a href="products">Prodotti</a>
       </li>
+      <li>
+        <a href="login.php">Login</a>
+      </li>
     </ul>
     <div class="user-area">
       <a class="cart" onclick="goToCart()">
@@ -31,6 +40,13 @@
       <image class="profile-pic" src="https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg">
 
       </image>
+      <div class="name">
+        <?php if (isset($_SESSION['name'])):?>
+          <?=$_SESSION['name']?>
+        <?php else:?>
+          Guest
+        <?php endif;?>
+      </div>
     </div>
   </nav>        
 </header>  
