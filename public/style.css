@@ -15,6 +15,11 @@ button , input[type="submit"]{
 a {
     all:unset;
 }
+
+.hidden{
+    display: none  !important; 
+}
+
 /* Product Styles */
 .product {
     display: inline-grid;
@@ -185,3 +190,34 @@ input[type="text"],input[type="password"],input[type="email"]{
     margin-right: auto;
     margin-top: 1.2em;
 }
+
+/*Popup classes*/
+
+.popup {
+    position: fixed;
+    top: -100px; /* Initially hides the popup above the viewport */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%);
+    z-index: 1000; /* Ensure it's above other content */
+    background-color: #fff;
+    padding: 20px;
+    border: 2px solid #ccc; /* Thick border */
+    border-radius: 10px; /* Curved edges */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: top 0.3s ease; /* Smooth transition for top position */
+  }
+  
+  .popup.info {
+    background-color: #e3f2fd; /* Light blue */
+    border-color: #2196f3; /* Blue */
+  }
+  
+  .popup.error {
+    background-color: #ffebee; /* Light red */
+    border-color: #f44336; /* Red */
+  }
+  
+  .popup.success {
+    background-color: #e8f5e9; /* Light green */
+    border-color: #4caf50; /* Green */
+  }

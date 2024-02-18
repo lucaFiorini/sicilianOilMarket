@@ -4,16 +4,7 @@
   session_start();
 
 ?>
-<script>
-  function goToCart(){
-    let params = '';
-    cart.forEach((item) => {
-      params+='cart[]='+item+'&'
-    })
 
-    document.location.replace('cart?' + params);
-  }
-</script>
 <header>
   <nav class="horizontal">
     <ul>
@@ -26,9 +17,14 @@
       <li>
         <a href="login.php">Login</a>
       </li>
+      <?php if (isset($_SESSION["ProfileID"])):?>
+      <li>
+        <a href="login.php?logout">Logout</a>
+      </li>
+      <?php endif?>
     </ul>
     <div class="user-area">
-      <a class="cart" onclick="goToCart()">
+      <a class="cart">
 
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart">
           <circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle>
@@ -41,7 +37,7 @@
 
       </image>
       <div class="name">
-        <?php if (isset($_SESSION['name'])):?>
+        <?php if (isset($_SESSION['ProfileID'])):?>
           <?=$_SESSION['name']?>
         <?php else:?>
           Guest
@@ -49,4 +45,41 @@
       </div>
     </div>
   </nav>        
-</header>  
+</header>
+
+<?php if (isset($_Popup->msg)):?>
+  <div class="popup <?php echo $_Popup->type ?>">
+    <?= $_Popup->msg ?>
+  </div>  
+<?php endif?>
+
+<script>
+  // Function to show the popup
+  function showPopup(popup) {
+    popup.style.top = '60px'; // Display the popup below the navbar
+    
+    // Hide the popup after 10 seconds
+    setTimeout(() => {
+      hidePopup(popup);
+    }, 10000); // 10 seconds in milliseconds
+  }
+
+  // Function to hide the popup
+  function hidePopup(popup) {
+    popup.style.top = '-100px'; // Hide the popup above the viewport
+  }
+
+  // Select all elements with the class "popup"
+  const popups = document.querySelectorAll('.popup');
+
+  document.addEventListener('DOMContentLoaded', function() {
+    // Loop through each popup element
+    popups.forEach(popup => {
+    showPopup(popup);
+    // Attach a click event listener to show the popup
+    popup.addEventListener('click', () => hidePopup(popup));
+  });
+
+  }, false);
+
+</script>
