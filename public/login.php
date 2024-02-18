@@ -104,11 +104,6 @@ if(isset($_POST['register'])){
   <body>
     <?php require "../partials/header.php"?>
     <main>
-      <?php if ( isset($_SESSION['userID']) ):?>
-        
-
-
-      <?php else: ?>
 
         <div class="form-box">
           <h2>Login</h2>
@@ -150,7 +145,6 @@ if(isset($_POST['register'])){
 
         </div>
 
-      <?php endif; ?>
     </main>
     <?php require "../partials/footer.php"?>
   </body>
