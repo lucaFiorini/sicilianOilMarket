@@ -92,10 +92,10 @@ if(isset($_POST['register'])){
           pw2.reportValidity();
           pw2.setCustomValidity("");
           return false;
-        }else 
-          return true;
+        } 
+          
+        return true;
 
-        return false;
       }
 
 

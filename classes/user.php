@@ -15,9 +15,6 @@ class Profile{
         $this->surname = $surname;
         $this->email = $email;
     }
-    public static function getFromDB(int $ID) : Profile | false{ 
-        return false; 
-    }
     public function getID(): int{return $this->ID;}
     public function getName(): string{return $this->name;}
     public function getSurname(): string{return $this->surname;}
@@ -28,15 +25,10 @@ class Profile{
 class Customer extends Profile{
     
     public function __construct(Profile $p){
+
     }
 
 }
 
-require("producer.php");
-/*todo
-class ProducerInterface extends Producer{
-    Profile p;
-
-}
 /*
 ?>

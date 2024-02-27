@@ -48,7 +48,7 @@
 </header>
 
 <?php if (isset($_Popup->msg)):?>
-  <div class="popup <?php echo $_Popup->type ?>">
+  <div class="popup <?= $_Popup->type ?>">
     <?= $_Popup->msg ?>
   </div>  
 <?php endif?>
