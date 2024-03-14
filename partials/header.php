@@ -24,7 +24,7 @@
       <?php endif?>
     </ul>
     <div class="user-area">
-      <a class="cart">
+      <a class="cartIcon" onclick="toggleCart()">
 
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart">
           <circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle>
@@ -44,7 +44,22 @@
         <?php endif;?>
       </div>
     </div>
-  </nav>        
+  </nav>  
+  
+  <div class="cart" id="cart">
+    <div class="items">
+
+    </div>
+    <button class="purchase" onclick='location.href="purchase"'>purchase</button>
+  </div>
+
+  <div class="item hidden" id="cart-item-model">
+    <img class="image">
+    <div class="name"></div>
+    <input class="amount" type="number" value="1" min="0" maxlength="3">
+    <input class="ID" type="hidden">
+  </div>
+
 </header>
 
 <?php if (isset($_Popup->msg)):?>
@@ -54,6 +69,7 @@
 <?php endif?>
 
 <script>
+
   // Function to show the popup
   function showPopup(popup) {
     popup.style.top = '60px'; // Display the popup below the navbar
@@ -78,8 +94,85 @@
     showPopup(popup);
     // Attach a click event listener to show the popup
     popup.addEventListener('click', () => hidePopup(popup));
+
   });
 
   }, false);
+
+  cartElement = document.getElementById("cart");
+
+  function addToCart(productID){
+    updateCart(productID,1);
+  }
+  function updateCart(productID,amount){
+
+    const xhttp = new XMLHttpRequest();
+    xhttp.onload = function() {
+
+      const data = JSON.parse(this.responseText);
+
+      if(data["status"] != "ok"){
+        
+        console.log(data["error"]);
+      }
+
+      loadCart();
+
+    }
+
+    xhttp.open("GET", "api/cart/update.php?ProductID="+productID.toString()+"&amount="+amount.toString());
+    xhttp.send();
+
+  }
+
+  function loadCart(){
+    const cart = document.getElementById("cart");
+
+    const cartItems = cart.getElementsByClassName("items")[0];
+
+    const cartItemModel = document.getElementById("cart-item-model");
+
+    const xhttp = new XMLHttpRequest();
+    xhttp.onload = function(){
+      
+      const resp = JSON.parse(this.responseText);
+
+      cartItems.innerHTML = '';
+
+      resp.forEach(item => {
+        const newNode = cartItemModel.cloneNode(true);
+        newNode.classList.remove("hidden");
+
+        const image = newNode.getElementsByClassName("image")[0];
+        const name = newNode.getElementsByClassName("name")[0];
+        const amount = newNode.getElementsByClassName("amount")[0];
+
+        image.src =item["image"];
+        name.innerHTML = item["name"];
+        amount.value = item["amount"];
+        
+        amount.onchange = function(){
+          updateCart(item["ID"],amount.value);
+        }
+
+
+        cartItems.appendChild(newNode);
+
+      });
+
+
+    }
+
+    xhttp.open("GET", "api/cart/get.php");
+    xhttp.send();
+    
+  }
+
+  loadCart();
+
+  function toggleCart(){
+    const cart = document.getElementById("cart");
+    cart.style.right = cart.style.right == "0px" ? "-300px" : "0px";
+  }
 
 </script>

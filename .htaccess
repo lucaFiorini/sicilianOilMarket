@@ -1,0 +1,13 @@
+RewriteEngine On
+
+# Prevent access to src directory
+RewriteRule ^src/ - [F]
+
+# Prevent access to root directory
+RewriteRule ^$ - [F]
+
+# Allow requests to /api directory
+RewriteRule ^api/ - [L]
+
+# Redirect all requests to public directory
+RewriteRule ^(.*)$ public/$1 [L]

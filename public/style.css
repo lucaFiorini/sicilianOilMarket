@@ -62,7 +62,7 @@ a {
     text-align: center;
 }
 
-input[type=button], input[type="submit"] {
+button, input[type=button], input[type="submit"] {
     background-color: rgb(85, 107, 46);
     border: none;
     border-radius: 0.1em;
@@ -72,7 +72,7 @@ input[type=button], input[type="submit"] {
     transition: filter 0.2s ease;
 }
 
-input[type=button]:hover, input[type="submit"]:hover  {
+button:hover, input[type=button]:hover, input[type="submit"]:hover  {
     filter: brightness(70%);
 }
 
@@ -119,14 +119,14 @@ nav.horizontal > .user-area{
     align-items:center;
 }
 
-nav.horizontal > .user-area > .cart {
+nav.horizontal > .user-area > .cartIcon {
     padding:14px;
     position: relative;
     top:0.1em;
     cursor: pointer;
 }
 
-nav.horizontal > .user-area > .cart:hover {
+nav.horizontal > .user-area > .cartIcon:hover {
     filter:brightness(70%);
 }
 
@@ -205,19 +205,58 @@ input[type="text"],input[type="password"],input[type="email"]{
     border-radius: 10px; /* Curved edges */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: top 0.3s ease; /* Smooth transition for top position */
-  }
-  
-  .popup.info {
-    background-color: #e3f2fd; /* Light blue */
-    border-color: #2196f3; /* Blue */
-  }
-  
-  .popup.error {
-    background-color: #ffebee; /* Light red */
-    border-color: #f44336; /* Red */
-  }
-  
-  .popup.success {
-    background-color: #e8f5e9; /* Light green */
-    border-color: #4caf50; /* Green */
-  }
+}
+
+.popup.info {
+background-color: #e3f2fd; /* Light blue */
+border-color: #2196f3; /* Blue */
+}
+
+.popup.error {
+background-color: #ffebee; /* Light red */
+border-color: #f44336; /* Red */
+}
+
+.popup.success {
+background-color: #e8f5e9; /* Light green */
+border-color: #4caf50; /* Green */
+}
+
+/*cart styling*/
+.cart {
+    transition: right 0.3s ease;
+    right: -300px;
+    width: 15em;
+    position: absolute;
+    background-color: #fff;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cart > .items > * {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.cart > .items > * > .image {
+    aspect-ratio: 1/1;
+    width: 3em;
+    border-radius: 0.5em;
+}
+.cart > .items > * > .name {
+    flex-grow: 1;
+    margin: 0 10px;
+}
+
+.cart > .items > * > .amount {
+    font-size: small;
+    color: #555;
+    padding: 0.2em 0.5em;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    width: 3em; /* Adjust width as needed */
+    text-align: center; /* Center the text within the input */
+}
