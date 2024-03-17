@@ -138,8 +138,20 @@
       const resp = JSON.parse(this.responseText);
 
       cartItems.innerHTML = '';
+      const purchaseBTN = cart.getElementsByClassName("purchase")[0];
+
+      if(resp === null){
+
+        cartItems.innerHTML = "No products found in cart";
+        purchaseBTN.classList.add("hidden");
+        return;
+
+      }
 
       resp.forEach(item => {
+
+        purchaseBTN.classList.remove("hidden");
+
         const newNode = cartItemModel.cloneNode(true);
         newNode.classList.remove("hidden");
 
@@ -154,7 +166,6 @@
         amount.onchange = function(){
           updateCart(item["ID"],amount.value);
         }
-
 
         cartItems.appendChild(newNode);
 
