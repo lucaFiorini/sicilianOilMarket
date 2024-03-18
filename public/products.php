@@ -31,7 +31,7 @@ $products = $res->fetch_all(MYSQLI_ASSOC);
         </div>
       <?php else:?>
         <p>
-          Nessun prodotto trovato
+          No products found
         </p>
       <?php endif;?>
     </main>

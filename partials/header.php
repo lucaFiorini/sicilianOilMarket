@@ -8,19 +8,21 @@
 <header>
   <nav class="horizontal">
     <ul>
+      <?php if(isset($_SESSION['profile']['employee'])):?>
       <li>
-        <a href="create product">Crea Prodotto</a>
+        <a href="product manager">Manage Products</a>
       </li>
+      <?php endif;?>
       <li>
-        <a href="products">Prodotti</a>
+        <a href="products">Products</a>
       </li>
       <li>
         <a href="login.php">Login</a>
       </li>
-      <?php if (isset($_SESSION["ProfileID"])):?>
-      <li>
-        <a href="login.php?logout">Logout</a>
-      </li>
+      <?php if (isset($_SESSION['profile'])):?>
+        <li>
+          <a href="login.php?logout">Logout</a>
+        </li>
       <?php endif?>
     </ul>
     <div class="user-area">
@@ -37,8 +39,8 @@
 
       </image>
       <div class="name">
-        <?php if (isset($_SESSION['ProfileID'])):?>
-          <?=$_SESSION['name']?>
+        <?php if (isset($_SESSION['profile'])):?>
+          <?=$_SESSION['profile']['name']?>
         <?php else:?>
           Guest
         <?php endif;?>

@@ -54,14 +54,21 @@ if(isset($_POST['register'])){
   if($res->num_rows== 1){
     
     $user = $res->fetch_assoc();
-    $_SESSION['ProfileID'] = $user['ProfileID'];
-    $_SESSION['name'] = $user['name'];
-    $_SESSION['surname'] = $user['surname'];
-    $_SESSION['email'] = $user['email'];
+    $_SESSION["profile"]['ProfileID'] = $user['ProfileID'];
+    $_SESSION["profile"]['name'] = $user['name'];
+    $_SESSION["profile"]['surname'] = $user['surname'];
+    $_SESSION["profile"]['email'] = $user['email'];
+
+    $query = "SELECT * FROM employee WHERE profileID = ".$user['ProfileID'];
+    $res = $conn->query($query);
+    if($res->num_rows == 1){
+      $employee = $res->fetch_assoc();
+      $_SESSION['profile']['employee']['ProducerID'] = $employee['ProducerID'];
+    }
 
     $_Popup->type = "success";
     $_Popup->msg = "Login successful!";
-
+    
   } else {
     $_Popup->type = "error";
     $_Popup->msg = "Login failed: wrong email or password";
