@@ -19,7 +19,7 @@ $products = $res->fetch_all(MYSQLI_ASSOC);
         <div id="products">
           <?php foreach($products as $id => $product):?>
             <div class="product">
-              <image class="image" src='https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg'>
+              <image class="image" src="<?=$product["image"]?>" onerror="this.src = 'images/no-image.jpg'" alt="prod-image">
 
               <a class="title" href='product?id=<?=$product["ID"]?>'><?=$product["name"]?></a>
               <a class="description" hred='product?id=<?=$product["ID"]?>'><?=$product["description"]?></a>
