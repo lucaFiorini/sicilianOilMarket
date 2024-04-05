@@ -276,6 +276,21 @@ border-color: #4caf50; /* Green */
     text-align: center;
 }
 
+table{
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table > thead > tr > th {
+    background-color: olive;
+}
+
+table > *:is(tbody,thead) > tr > :is(td,th) { 
+    border: 0.1em solid darkolivegreen;
+    padding: 0.7em;
+    font-size: 1.5em;
+}
+
 #product-edit-area {
     position: fixed;
     background-color:#ffffff;

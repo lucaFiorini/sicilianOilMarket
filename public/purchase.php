@@ -1,7 +1,15 @@
 <?php
 $conn = require("../classes/getConnection.php");
 $res = $conn->query("SELECT ProductID as ID, image, name, description, price FROM product");
-$products = $res->fetch_all(MYSQLI_ASSOC);
+$products_db = $res->fetch_all(MYSQLI_ASSOC);
+$products;
+foreach($products_db as $product_db){
+  $id = intval($product_db["ID"]);
+  unset($product_db["ID"]);
+  $product_db["price"] = floatval(intval($product_db["price"]) / 100);
+  $products[$id] = $product_db;
+
+}
 ?>
 
 <!DOCTYPE html>
@@ -16,11 +24,45 @@ $products = $res->fetch_all(MYSQLI_ASSOC);
   <?php require "../partials/header.php"?>
   <main>
     <div>
-    <?php foreach($_SESSION["cart"] as $key => $amount):?>
-      <div>
-        <?=$products[$key]["name"]?> x<?=$amount?> 
-      </div>
-    <?php endforeach;?>
+      <table>
+        <thead>
+          <tr>
+            <th>
+              Product name
+            </th>
+            <th>
+              Price
+            </th>
+            <th>
+              Amount
+            </th>
+            <th>
+              Subtotal
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php $total = 0;?>
+          <?php foreach($_SESSION["cart"] as $key => $amount):?>
+            <tr> 
+              <?php $total += $subtotal = $products[$key]["price"] * $amount?>
+              <td> <?=$products[$key]["name"]?> </td>
+              <td> €<?=$products[$key]["price"]?> </td> 
+              <td> x<?=$amount?> </td> 
+              <td> €<?=$subtotal?></td>
+            </tr>
+          <?php endforeach;?>
+          <th>
+            Total price:
+          </th>
+          <td colspan="3">
+            <?=$total?>
+          </td>
+        </tbody>
+      </table>
     </div>
+    <hr>
+    </input>
   </main>
+  <input type="button" value="checkout"></input>
 </body>
