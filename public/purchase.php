@@ -64,5 +64,5 @@ foreach($products_db as $product_db){
     <hr>
     </input>
   </main>
-  <input type="button" value="checkout"></input>
+  <input type="button" value="checkout" onclick="window.location.href='checkout'"></input>
 </body>

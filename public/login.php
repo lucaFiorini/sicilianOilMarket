@@ -69,6 +69,11 @@ if(isset($_POST['register'])){
     $_Popup->type = "success";
     $_Popup->msg = "Login successful!";
     
+    if(isset($_SESSION["login-redirect-url"])){
+      Header("Location: ".$_SESSION["login-redirect-url"]);
+      exit();
+    }
+
   } else {
     $_Popup->type = "error";
     $_Popup->msg = "Login failed: wrong email or password";
