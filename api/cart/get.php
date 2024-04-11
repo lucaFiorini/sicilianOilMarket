@@ -12,9 +12,9 @@ if(isset($_SESSION['cart'])){
     $stmt->bind_param("i",$productID);
     $stmt->execute();
     $res = $stmt->get_result();
-    $row = $res->fetch_assoc();
-    $row["amount"] = $amount;
-    $products[] = $row;
+    $product = $res->fetch_assoc();
+    $product["amount"] = $amount;
+    $products[] = $product;
 
   }
 }

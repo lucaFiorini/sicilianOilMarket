@@ -58,6 +58,12 @@ if(isset($_POST['register'])){
     $_SESSION["profile"]['name'] = $user['name'];
     $_SESSION["profile"]['surname'] = $user['surname'];
     $_SESSION["profile"]['email'] = $user['email'];
+    $_SESSION["profile"]['codice_fiscale'] = $user['codice_fiscale'];
+    $_SESSION["profile"]['address'] = $user['address'];
+    $_SESSION["profile"]['phone'] = $user['phone'];
+
+
+
 
     $query = "SELECT * FROM employee WHERE profileID = ".$user['ProfileID'];
     $res = $conn->query($query);
