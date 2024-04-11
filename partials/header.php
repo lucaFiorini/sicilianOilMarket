@@ -65,7 +65,12 @@
 </header>
 
 <?php if (isset($_Popup->msg)):?>
-  <div class="popup <?= $_Popup->type ?>" value-timeout=<?=$_Popup->timeout?> value-on_close_redirect=<?=$_Popup->onCloseRedirect?>>
+  <div class="popup <?= $_Popup->type ?>"
+    data-timeout="<?=$_Popup->timeout?>"
+    <?php if(isset($_Popup->onCloseRedirect)):?>
+      data-on_close_redirect="<?=$_Popup->onCloseRedirect?>"
+    <?php endif?>
+  >
     <?= $_Popup->msg ?>
   </div>  
 <?php endif?>
@@ -78,7 +83,7 @@
     
     // Hide the popup after 10 seconds
     setTimeout(() => {
-      if(ppopup.dataset.on_close_redirect !== undefined && popup.dataset.on_close_redirect !== ""){
+      if(popup.dataset.on_close_redirect !== undefined && popup.dataset.on_close_redirect !== ""){
         window.location.href = popup.dataset.on_close_redirect;
       } else hidePopup(popup);
     }, popup.dataset.timeout); // 10 seconds in milliseconds

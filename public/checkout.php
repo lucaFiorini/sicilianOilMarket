@@ -4,8 +4,8 @@ session_start();
 if(!isset($_SESSION["profile"])){
     $_Popup->type = "error";
     $_Popup->msg = "Please log in before continuing";
-    $_Popup->onCloseRedirect;
-    $_Popup->timeout = 2;
+    $_Popup->onCloseRedirect = "login";
+    $_Popup->timeout = 2000;
 }
 
 ?>
