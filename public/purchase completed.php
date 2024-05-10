@@ -27,9 +27,8 @@ $receipts = $res->fetch_all(MYSQLI_ASSOC);
     <?php require "../partials/header.php"?>
     <main>
       Thank you for your purchase, your can find your receipts here:<br>
-
       <?php foreach($receipts as $receipt):?>
-        <a href="get_receipt.php?receiptID=<?=$receipt['receiptID']?>">download recipt <?=$receipt['reciptID']?></a>
+        <a class="link" href="get_receipt.php?receiptID=<?=$receipt['reciptID']?>">download recipt <?=$receipt['reciptID']?></a><br>
       <?php endforeach?>
     </main>
     <?php //require "../partials/footer.php"?>

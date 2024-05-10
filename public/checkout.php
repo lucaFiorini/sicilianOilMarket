@@ -2,6 +2,7 @@
 require "../classes/popupHandler.php";
 $conn = require "../classes/getConnection.php";
 
+date_default_timezone_set('Europe/Rome');
 
 session_start();
 if(!isset($_SESSION["profile"])){
@@ -61,6 +62,8 @@ if(!isset($_SESSION["profile"])){
       
       $XMLreceipt = $xml->addChild("receipt");
 
+      $XMLreceipt->addChild("issue_date",date('m/d/Y H:i:s', time()));
+
       $res = $conn->query("SELECT * FROM producer WHERE ProducerID = ".intval($producerID));
 
       $producer = $res->fetch_assoc();
@@ -81,7 +84,6 @@ if(!isset($_SESSION["profile"])){
       $XMLcustomer->addChild("name",$_SESSION['profile']['surname']);
       $XMLcustomer->addChild("email",$_SESSION['profile']['email']);
       $XMLcustomer->addChild("codice_fiscale",$_SESSION['profile']['codice_fiscale']);
-      $XMLcustomer->addChild("email",$_SESSION['profile']['email']);
       $XMLcustomer->addChild("address",$_SESSION['profile']['address']);
       $XMLcustomer->addChild("phone",$_SESSION['profile']['phone']);
       
@@ -108,9 +110,9 @@ if(!isset($_SESSION["profile"])){
         $XMLProduct = $XMLProducts->addChild("product");
         
         $XMLProduct->addChild('name',$product['name']);
-        $XMLProduct->addChild('unit_price',$product['price']);
-        $XMLProduct->addChild('amount',$product['price']);
-        $XMLProduct->addChild('total_price',$product['amount']);
+        $XMLProduct->addChild('unit_price',floatval($product['price'] / 100));
+        $XMLProduct->addChild('amount',$product['amount']);
+        $XMLProduct->addChild('total_price',floatval(($product['price'] * $product['amount']) / 100));
 
       }
 

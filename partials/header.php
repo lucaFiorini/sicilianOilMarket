@@ -77,6 +77,8 @@
 
 <script>
 
+  const cartContents = Array();
+  
   // Function to show the popup
   function showPopup(popup) {
     popup.style.top = '60px'; // Display the popup below the navbar
@@ -111,9 +113,12 @@
   cartElement = document.getElementById("cart");
 
   function addToCart(productID){
-    updateCart(productID,1);
+    updateCart(productID, cartContents[productID] !== undefined ? cartContents[productID]+1 : 1);
   }
+
   function updateCart(productID,amount){
+
+    cartContents[productID] = amount;
 
     const xhttp = new XMLHttpRequest();
     xhttp.onload = function() {
@@ -172,6 +177,8 @@
         name.innerHTML = item["name"];
         amount.value = item["amount"];
         
+        cartContents[item["ID"]] = parseInt(item['amount']);
+
         amount.onchange = function(){
           updateCart(item["ID"],amount.value);
         }
