@@ -41,6 +41,7 @@
   <body>
     <?php require "../partials/header.php"?>
     <main>
+    
       <div class="form-box centered" id="product-edit-area">
 
         <h2>Edit [Product name] / new Product</h2>
@@ -52,9 +53,7 @@
           <input id="product-name" required type="text" name="name">
           
           <label for="product-image">Product image:</label>
-          <!--<input id="product-image" type="file" accept="image/*">-->
-          <input id="product-image" name="image">
-
+          <input id="product-image" type="file" accept="image/*">
 
           <label for="product-price">Product price:</label>
           <input id="product-price" required type="number" name="price" step="0.01" min="0">
@@ -65,9 +64,12 @@
           <label for="product-description">Product description:</label>
           <textarea id="product-description" required name="description"></textarea>
           
+          <input type="button" class="delete" value="Close" onclick="hideProductEditWindow()">
           <input type="submit" value="Save / Add product">
+
         </form>
       </div>
+
       <button>Add a new product</button>
       <?php if(count($products)>0):?>
         <div id="products">
@@ -78,7 +80,8 @@
               <a class="title" href='product?id=<?=$product["ID"]?>'><?=$product["name"]?></a>
               <a class="description" hred='product?id=<?=$product["ID"]?>'><?=$product["description"]?></a>
               <div>€<?=floatval($product["price"]) / 100?></div>
-              <input type="button" value="Manage product" onclick='manageProduct(<?=$product["ID"]?>)'>
+              <input type="button" value="Manage product" onclick='window.location.href = "manage product?ID=<?=$id?>"'>
+              <input type="button" value="Delete product" class="delete" onclick='window.location.href = "manage product?ID=<?=$id?>&delete=true"'>
 
             </div>
           <?php endforeach;?>
@@ -89,14 +92,6 @@
         </p>
       <?php endif;?>
     </main>
-    <?php //require "../partials/footer.php"?>
+    <?php require "../partials/footer.php"?>
   </body>
-  <?php require "../partials/footer.php"?>
-  
 </html>
-<script>
-
-
-  
-
-</script>

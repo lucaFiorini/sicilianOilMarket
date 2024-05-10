@@ -295,4 +295,9 @@ table > *:is(tbody,thead) > tr > :is(td,th) {
     position: fixed;
     background-color:#ffffff;
     width: 35em;
+    transition: ease-in 0.2s ease;
+}
+
+button.delete, input[type=button].delete, input[type="submit"].delete {
+    background-color:#f44336;
 }
