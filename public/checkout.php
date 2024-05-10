@@ -39,8 +39,8 @@ if(!isset($_SESSION["profile"])){
     $totalpayedPerCompany[] = array();
 
     foreach($_SESSION["cart"] as $productID => $amount){
-    
-      $stmt = $conn->prepare("SELECT ProductID,ProducerID,price FROM product WHERE ProductID = ?");
+      
+      $stmt = $conn->prepare("SELECT ProductID,ProducerID,name,price FROM product WHERE ProductID = ?");
       $stmt->bind_param("i",$productID);
       $stmt->execute();
       $res = $stmt->get_result();
@@ -57,20 +57,69 @@ if(!isset($_SESSION["profile"])){
 
     foreach($recipts as $producerID => $products){
 
+      $xml = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><receipts></receipts>');
+      
+      $XMLreceipt = $xml->addChild("receipt");
+
+      $res = $conn->query("SELECT * FROM producer WHERE ProducerID = ".intval($producerID));
+
+      $producer = $res->fetch_assoc();
+
+      $XMLProducer = $XMLreceipt->addChild("producer");
+
+      $XMLProducer->addChild("ragione_sociale",$producer['ragione_sociale']);
+      $XMLProducer->addChild("address",$producer["address"]);
+      $XMLProducer->addChild("phone_nmber",$producer["phoneNumber"]);
+      $XMLProducer->addChild("email",$producer["email"]);
+      $XMLProducer->addChild("PEC",$producer["PEC"]);
+      $XMLProducer->addChild("partita_IVA",$producer["partita_IVA"]);
+      $XMLProducer->addChild("codice_fiscale",$producer["codice_fiscale"]);
+
+      $XMLcustomer = $XMLreceipt->addChild("customer");
+      
+      $XMLcustomer->addChild("surname",$_SESSION['profile']['name']);
+      $XMLcustomer->addChild("name",$_SESSION['profile']['surname']);
+      $XMLcustomer->addChild("email",$_SESSION['profile']['email']);
+      $XMLcustomer->addChild("codice_fiscale",$_SESSION['profile']['codice_fiscale']);
+      $XMLcustomer->addChild("email",$_SESSION['profile']['email']);
+      $XMLcustomer->addChild("address",$_SESSION['profile']['address']);
+      $XMLcustomer->addChild("phone",$_SESSION['profile']['phone']);
+      
+      $XMLProducts = $XMLreceipt->addChild("products");
+
+
       $q = "INSERT INTO recipt(ProducerID,receiving_ProfileID,total_payed) VALUES (?,?,?)";
       $stmt = $conn->prepare($q);
       $stmt->bind_param("iii",$producerID,$_SESSION['profile']['ProfileID'],$payedToEachProducer[$producerID]);
       $stmt->execute();
       $curr_id = $stmt->insert_id;
 
+      $XMLfilename = $curr_id.'.xml';
+
+      $q = 'UPDATE recipt SET raw_recipt = "'.$XMLfilename.'" WHERE reciptID =  '.intval($curr_id);
+      $conn->query($q);
+
       foreach($products as $product){
         
-        $q = "INSERT INTO receipt_product(ReceiptID,ProductID,amount) VALUES (".intval($curr_id).",".intval($product['ProductID']).",".$product['amount'].")";
+        $q = "INSERT INTO receipt_product(ReceiptID,ProductID,amount) VALUES (".intval($curr_id).",".intval($product['ProductID']).",".intval($product['amount']).")";
         echo $q;
         $conn->query($q);
+        
+        $XMLProduct = $XMLProducts->addChild("product");
+        
+        $XMLProduct->addChild('name',$product['name']);
+        $XMLProduct->addChild('unit_price',$product['price']);
+        $XMLProduct->addChild('amount',$product['price']);
+        $XMLProduct->addChild('total_price',$product['amount']);
 
       }
 
+      $dom = new DOMDocument("1.0");
+      $dom->preserveWhiteSpace = false;
+      $dom->formatOutput = true;
+      $dom->loadXML($XMLreceipt->asXML());
+      $dom->save('../receipts/'.$XMLfilename);
+      
     }
 
     header("Location: purchase completed");

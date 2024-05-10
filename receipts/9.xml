@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<receipt>
+  <producer>
+    <ragione_sociale>ciccio</ragione_sociale>
+    <address>0</address>
+    <phone_nmber>69</phone_nmber>
+    <email>luca.merda@merda.lmao</email>
+    <PEC>444444444444444</PEC>
+    <partita_IVA/>
+    <codice_fiscale/>
+  </producer>
+  <customer>
+    <surname>Test</surname>
+    <name>MAn</name>
+    <email>test@test.net</email>
+    <codice_fiscale>test_cf</codice_fiscale>
+    <email>test@test.net</email>
+    <address>Via del test, 42</address>
+    <phone>6969</phone>
+  </customer>
+  <products>
+    <product>
+      <name>sds</name>
+      <unit_price>1232</unit_price>
+      <amount>1232</amount>
+      <total_price>1</total_price>
+    </product>
+    <product>
+      <name>test</name>
+      <unit_price>6022</unit_price>
+      <amount>6022</amount>
+      <total_price>1</total_price>
+    </product>
+  </products>
+</receipt>

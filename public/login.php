@@ -19,18 +19,21 @@ if(isset($_POST['register'])){
     $_Popup->msg = "Registration failed: Email is already registered.";
   } else {
     // Proceed with registration
-    $query = "INSERT INTO profile(email,password_hash,status,name,surname)
-      VALUES (?,PASSWORD(?),?,?,?)";
+    $query = "INSERT INTO profile(email,password_hash,status,name,surname,codice_fiscale,phone,address)
+      VALUES (?,PASSWORD(?),?,?,?,?,?,?)";
 
     $status = "OK"; //temp shit
 
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("sssss",
+    $stmt->bind_param("ssssssss",
       $_POST['email'],
       $_POST['password'],
       $status,
       $_POST['name'],
-      $_POST['surname']
+      $_POST['surname'],
+      $_POST['codice-fiscale'],
+      $_POST['phone'],
+      $_POST['address']
     );
     $stmt->execute();
 
@@ -61,9 +64,6 @@ if(isset($_POST['register'])){
     $_SESSION["profile"]['codice_fiscale'] = $user['codice_fiscale'];
     $_SESSION["profile"]['address'] = $user['address'];
     $_SESSION["profile"]['phone'] = $user['phone'];
-
-
-
 
     $query = "SELECT * FROM employee WHERE profileID = ".$user['ProfileID'];
     $res = $conn->query($query);
@@ -120,7 +120,7 @@ if(isset($_POST['register'])){
     </script>
   </head>
   <body>
-    <?php require "../partials/header.php"?>
+    <?php require_once "../partials/header.php"?>
     <main>
 
         <div class="form-box">
@@ -149,6 +149,15 @@ if(isset($_POST['register'])){
 
             <label for="register-surame">Surname: </label>
             <input required id="register-surname" type="text" name="surname">
+
+            <label for="codice-fiscale">Fiscale Code (not required): </label>
+            <input id="codice-fiscale" type="text" name="codice_fiscale">
+
+            <label for="phone">Phone: </label>
+            <input required id="phone" type="text" name="phone">
+
+            <label for="address">Address: </label>
+            <input required id="address" type="text" name="address">
 
             <label for="register-password">Password: </label>
             <input required id="register-password" type="password" name="password">
